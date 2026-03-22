@@ -40,9 +40,8 @@ public class Paciente {
     public String toString() {
         return "Paciente{" +
                 " --Nombre='" + nombre + '\'' +
-                ", --documento=" + documento +
-                ", --costoConsulta=" + costoConsulta +
-                '}';
+                ", --Documento=" + documento +
+                ", --CostoConsulta=" + costoConsulta;
     }
     public String mostrarInfo(){
         return "--Nombre: "+nombre+" --Documento:"+documento+" --Costo consulta: "+costoConsulta;
@@ -50,12 +49,18 @@ public class Paciente {
 
     public double calcularCostoFinal(){
         return costoConsulta;
+
     }
-    public double aplicarDescuento(double costoConsulta){
-        return costoConsulta;
+    public double aplicarDescuento(double porcentaje){
+        double des1=costoConsulta*porcentaje;
+        double des2=costoConsulta-des1;
+        return  des2;
     }
-    public double aplicarRecargo(double costoConsulta){
-        return costoConsulta;
+    public double aplicarRecargo(double porcentaje){
+        double des1=costoConsulta*porcentaje;
+        double des2=costoConsulta+des1;
+        return  des2;
+
     }
     public boolean consultaCosto(){
         return this.costoConsulta>300000;

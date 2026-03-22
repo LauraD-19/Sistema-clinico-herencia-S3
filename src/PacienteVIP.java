@@ -23,8 +23,8 @@ public class PacienteVIP extends Paciente{
 
     @Override
     public String toString() {
-        return "PacienteVIP: " + super.toString()+
-                ", --años Fidelidad=" + aniosFidelidad;
+        return "Paciente VIP: " + super.toString()+
+                ", --años Fidelidad='" + aniosFidelidad+"' }";
     }
     @Override
     public String mostrarInfo(){
@@ -32,11 +32,23 @@ public class PacienteVIP extends Paciente{
     }
     @Override
     public double calcularCostoFinal(){
-        return costoConsulta;
-    }
-    @Override
-    public double aplicarDescuento(){
-        return costoConsulta;
+        double descuento;
+        if(aniosFidelidad==10) {
+            System.out.println("Se le hizo un descuento del 40%");
+            descuento=(0.40);
+        } else if (aniosFidelidad==5) {
+            System.out.println("Se le hizo un descuento del 30%");
+            descuento=(0.30);
+        } else {
+            System.out.println("Se le hizo un descuento del 20%");
+            descuento=(0.20);
+        }
+        double total = aplicarDescuento(descuento);
+        if (total>300000) {
+            return total=300000;
+        }
+        return total;
+
     }
 
 }

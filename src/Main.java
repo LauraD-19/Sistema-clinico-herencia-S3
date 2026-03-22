@@ -12,7 +12,7 @@ public class Main {
 
         System.out.println("Bienvenido");
         do {
-            System.out.println("Digite una de las siguiente opnciones:\n1.Registrar paciente particular \n2.Registrar paciente de Eps\n3.Registrar paciente VIP\n4.Buscar paciente por documento\n5.Mostrar todos los pacientes\n6.Mostrar paciente por tipo\n7.Calcular costo consulta del paciente\n8.Mostrar paciente con consulta costosa\n9.Mostrar paciente que mas pago\n10.Salir");
+            System.out.println("Digite una de las siguiente opciones:\n1.Registrar paciente particular \n2.Registrar paciente de Eps\n3.Registrar paciente VIP\n4.Buscar paciente por documento\n5.Mostrar todos los pacientes\n6.Mostrar paciente por tipo\n7.Calcular costo consulta del paciente\n8.Mostrar paciente con consulta costosa\n9.Mostrar paciente que mas pago\n10.Salir");
             op= teclado.nextInt();
             switch (op){
                 case 1://particular
@@ -43,46 +43,52 @@ public class Main {
                     break;
 
                 case 5://mostrar pacientes
-                    System.out.println("Empleados: \n");
+                    System.out.println("Pacientes: \n");
                     for (Paciente E : PacienteList) {
                         System.out.println(E.mostrarInfo());
                     }
                     break;
 
                 case 6://mostrar paciente por tipo
-                    System.out.println("Digite para mostrar el tipo de paciente: 1.Particular\n2.De EPS\n3.VIP");
+                    System.out.println("Digite para mostrar el tipo de paciente: \n1.Particular\n2.De EPS\n3.VIP\n4.Salir");
                     op2 = teclado.nextInt();
-                    switch (op2){
-                        case 1://ad
-                            System.out.println("Pacientes particulares: \n");
-                            for(Paciente E:PacienteList){
-                                if(E instanceof PacienteParticular){
-                                    System.out.println(E.mostrarInfo());
+                    do {
+                        switch (op2){
+                            case 1://ad
+                                System.out.println("Pacientes particulares: \n");
+                                for(Paciente E:PacienteList){
+                                    if(E instanceof PacienteParticular){
+                                        System.out.println(E.mostrarInfo());
+                                    }
                                 }
-                            }
-                            break;
+                                break;
 
-                        case 2://ve
-                            System.out.println("Pacientes EPS: \n");
-                            for(Paciente E:PacienteList){
-                                if(E instanceof PacienteVIP){
-                                    System.out.println(E.mostrarInfo());
+                            case 2://ve
+                                System.out.println("Pacientes EPS: \n");
+                                for(Paciente E:PacienteList){
+                                    if(E instanceof PacienteVIP){
+                                        System.out.println(E.mostrarInfo());
+                                    }
                                 }
-                            }
-                            break;
+                                break;
 
-                        case 3://ho
-                            System.out.println("Paciente VIP: \n");
-                            for(Paciente E:PacienteList){
-                                if(E instanceof PacienteVIP){
-                                    System.out.println(E.mostrarInfo());
+                            case 3://ho
+                                System.out.println("Paciente VIP: \n");
+                                for(Paciente E:PacienteList){
+                                    if(E instanceof PacienteVIP){
+                                        System.out.println(E.mostrarInfo());
+                                    }
                                 }
-                            }
-                            break;
-                        default:
-                            System.out.println("Ingrese una opcion correcta (ㆆ_ㆆ)");
-                    }
+                                break;
+                            case 4:
+                                System.out.println("--Volviendo al menu prcincipal...");
+                                break;
+                            default:
+                                System.out.println("Ingrese una opcion correcta (ㆆ_ㆆ)");
+                        }
+                    }while (op2!=4);
                     break;
+
                 case 7://calcular costo
                     System.out.println("Escriba el ID del empleado (sin comas, puntos o espacios): ");
                     buscar = teclado.nextInt();
@@ -90,7 +96,7 @@ public class Main {
                     for (Paciente P : PacienteList) {
                         if (P.getDocumento() == buscar) {
                             System.out.println(P);
-                            P.calcularCostoFinal();
+                            System.out.println("\n--Costo Final: "+P.calcularCostoFinal());
                             encontrado1 = true;
                             break;
                         }
@@ -101,7 +107,7 @@ public class Main {
                     break;
 
                 case 8://consulta costosa
-                    System.out.println("--Empleados mayores de edad: ");
+                    System.out.println("--Pacientes con consulta costosa: ");
                     for(Paciente Pa: PacienteList){
                         if(Pa.consultaCosto()){
                             System.out.println("--"+Pa.getNombre()+ " Consulta costosa \n");
@@ -110,6 +116,20 @@ public class Main {
                     break;
 
                 case 9://paciente que mas pago
+                    Paciente mayor=null;
+                    double mayorPago=0;
+                    for(Paciente P: PacienteList){
+                        double total= P.calcularCostoFinal();
+                        if(total>mayorPago){
+                            mayorPago=total;
+                            mayor=P;
+                        }
+                    }
+                    if(mayor!=null){
+                        System.out.println("--El paciente que mas pago es: "+ mayor.getNombre()+" con="+mayorPago);
+
+                    }
+
 
                 case 10:
                     System.out.println("Saliendo...");
@@ -134,7 +154,7 @@ public class Main {
 
         PacienteParticular pacienteP = new PacienteParticular(nombre, documento, costoConsulta);
         PacienteList.add(pacienteP);
-        System.out.println("\n--Paciente regiustrado");
+        System.out.println("\n--Paciente registrado");
     }
 
     private static void PacienteEPS(Scanner teclado, List<Paciente> PacienteList) {
@@ -145,12 +165,13 @@ public class Main {
         int documento = teclado.nextInt();
         System.out.println("Costo de la consulta:");
         double costoConsulta = teclado.nextDouble();
+        teclado.nextLine();
         System.out.println("Nombre de la EPS: ");
         String nombreEPS= teclado.nextLine();
 
         PacienteEPS pacienteE = new PacienteEPS(nombre, documento, costoConsulta, nombreEPS);
         PacienteList.add(pacienteE);
-        System.out.println("\n--Paciente regiustrado");
+        System.out.println("\n--Paciente registrado");
     }
 
     private static void PacienteVIP(Scanner teclado, List<Paciente> PacienteList) {
@@ -166,7 +187,7 @@ public class Main {
 
         PacienteVIP pacienteV = new PacienteVIP(nombre, documento, costoConsulta, anosfidelidad);
         PacienteList.add(pacienteV);
-        System.out.println("\n--Paciente regiustrado");
+        System.out.println("\n--Paciente registrado");
     }
 }
 

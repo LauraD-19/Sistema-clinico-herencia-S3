@@ -25,7 +25,7 @@ public class PacienteEPS extends Paciente{
 
     @Override
     public String toString() {
-        return "Paciente EPS: "+super.toString()+", --Nombre EPS='" + nombreEPS;
+        return "Paciente EPS: "+super.toString()+", --Nombre EPS='" + nombreEPS+"' }";
     }
     @Override
     public String mostrarInfo(){
@@ -33,11 +33,19 @@ public class PacienteEPS extends Paciente{
     }
     @Override
     public double calcularCostoFinal(){
-        return costoConsulta;
-    }
-    @Override
-    public double aplicarDescuento(){
-        return costoConsulta;
+        double porcentaje;
+        if(costoConsulta==300000 ) {
+            porcentaje=0.25;
+        } else if (costoConsulta==80000) {
+            porcentaje=(0.20);
+        }else {
+            porcentaje=(0.30);
+        }
+        double costoso= costoConsulta*porcentaje;
+        if(consultaCosto()){
+            costoso=costoso-(costoso*0.05);
+        }
+        return costoso;
     }
 
 }
