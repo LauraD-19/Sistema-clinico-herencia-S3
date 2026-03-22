@@ -50,9 +50,9 @@ public class Main {
                     break;
 
                 case 6://mostrar paciente por tipo
-                    System.out.println("Digite para mostrar el tipo de paciente: \n1.Particular\n2.De EPS\n3.VIP\n4.Salir");
-                    op2 = teclado.nextInt();
                     do {
+                        System.out.println("Digite para mostrar el tipo de paciente: \n1.Particular\n2.De EPS\n3.VIP\n4.Salir");
+                        op2 = teclado.nextInt();
                         switch (op2){
                             case 1://ad
                                 System.out.println("Pacientes particulares: \n");
@@ -66,7 +66,7 @@ public class Main {
                             case 2://ve
                                 System.out.println("Pacientes EPS: \n");
                                 for(Paciente E:PacienteList){
-                                    if(E instanceof PacienteVIP){
+                                    if(E instanceof PacienteEPS){
                                         System.out.println(E.mostrarInfo());
                                     }
                                 }
@@ -80,6 +80,7 @@ public class Main {
                                     }
                                 }
                                 break;
+
                             case 4:
                                 System.out.println("--Volviendo al menu prcincipal...");
                                 break;
@@ -129,7 +130,7 @@ public class Main {
                         System.out.println("--El paciente que mas pago es: "+ mayor.getNombre()+" con="+mayorPago);
 
                     }
-
+                    break;
 
                 case 10:
                     System.out.println("Saliendo...");
